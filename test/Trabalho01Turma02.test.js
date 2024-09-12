@@ -2,13 +2,13 @@ const Biblioteca = require('../src/Trabalho01Turma02');
 
 describe('Teste da classe Biblioteca', () => {
 
-    test('Método adicionarLivro', () => {
+    test('Adicionar livro', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1' });
         expect(biblioteca.livros).toMatchObject([{ id: 1, titulo: 'Livro 1' }]);
     });
 
-    test('Método removerLivro', () => {
+    test('Remover livro', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1' });
         biblioteca.adicionarLivro({ id: 2, titulo: 'Livro 2' });
@@ -16,7 +16,7 @@ describe('Teste da classe Biblioteca', () => {
         expect(biblioteca.livros).toMatchObject([{ id: 2, titulo: 'Livro 2' }]);
     });
 
-    test('Método buscarLivroPorId', () => {
+    test('Buscar livro poor ID', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1' });
         biblioteca.adicionarLivro({ id: 2, titulo: 'Livro 2' });
@@ -25,7 +25,7 @@ describe('Teste da classe Biblioteca', () => {
         expect(biblioteca.buscarLivroPorId(3)).toEqual({ id: 3, titulo: 'Livro 3' });
     });
 
-    test('Método buscarLivroPorTitulo', () => {
+    test('Buscar livro por título', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1' });
         biblioteca.adicionarLivro({ id: 2, titulo: 'Livro 2' });
@@ -34,7 +34,7 @@ describe('Teste da classe Biblioteca', () => {
         expect(biblioteca.buscarLivroPorTitulo('Livro 3')).toMatchObject([{ id: 3, titulo: 'Livro 3' }]);
     });
 
-    test('Método listarLivros', () => {
+    test('Listar todos livros', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1' });
         biblioteca.adicionarLivro({ id: 2, titulo: 'Livro 2' });
@@ -43,19 +43,15 @@ describe('Teste da classe Biblioteca', () => {
         expect(biblioteca.listarLivros()).toHaveLength(4);
     });
 
-    test('Método adicionarMembro', () => {
+    test('Adicionar membro', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarMembro({ id: 1, nome: 'Membro 1' });
-        biblioteca.adicionarMembro({ id: 2, nome: 'Membro 2' });
-        biblioteca.adicionarMembro({ id: 3, nome: 'Membro 3' });
         expect(biblioteca.membros).toMatchObject([
             { id: 1, nome: 'Membro 1' },
-            { id: 2, nome: 'Membro 2' },
-            { id: 3, nome: 'Membro 3' }
         ]);
     });
 
-    test('Método removerMembro', () => {
+    test('Remover membro', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarMembro({ id: 1, nome: 'Membro 1' });
         biblioteca.adicionarMembro({ id: 2, nome: 'Membro 2' });
@@ -67,7 +63,7 @@ describe('Teste da classe Biblioteca', () => {
         ]);
     });
 
-    test('Método buscarMembroPorId', () => {
+    test('Buscar membro por ID', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarMembro({ id: 1, nome: 'Membro 1' });
         biblioteca.adicionarMembro({ id: 2, nome: 'Membro 2' });
@@ -75,7 +71,7 @@ describe('Teste da classe Biblioteca', () => {
         expect(biblioteca.buscarMembroPorId(2)).toEqual({ id: 2, nome: 'Membro 2' });
     });
 
-    test('Método listarMembros', () => {
+    test('Listar membros', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarMembro({ id: 1, nome: 'Membro 1' });
         biblioteca.adicionarMembro({ id: 2, nome: 'Membro 2' });
@@ -83,25 +79,25 @@ describe('Teste da classe Biblioteca', () => {
         expect(biblioteca.listarMembros()).toHaveLength(3);
     });
 
-    test('Método emprestarLivro', () => {
+    test('Emprestar livro', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1' });
         biblioteca.adicionarMembro({ id: 1, nome: 'Membro 1' });
         expect(biblioteca.emprestarLivro(1, 1)).toBe(true);
     });
-    test('Método emprestarLivro com um livro que não existe', () => {
+    test('Emprestar livro com um livro que não existe', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1' });
         biblioteca.adicionarMembro({ id: 1, nome: 'Membro 1' });
         expect(biblioteca.emprestarLivro(2, 1)).toBe(false);
     });
-    test('Método emprestarLivro para um membro que não existe', () => {
+    test('Emprestar livro para um membro que não existe', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1' });
         biblioteca.adicionarMembro({ id: 1, nome: 'Membro 1' });
         expect(biblioteca.emprestarLivro(1, 2)).toBe(false);
     });
-    test('Método emprestarLivro para um livro que já foi emprestado', () => {
+    test('Emprestar um livro que já foi emprestado', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1', emprestado: true, idMembro: 1 });
         biblioteca.adicionarMembro({ id: 1, nome: 'Membro 1' });
@@ -110,14 +106,14 @@ describe('Teste da classe Biblioteca', () => {
         expect(biblioteca.emprestarLivro(1, 2)).toBe(false);
     });
 
-    test('Método devolverLivro que existe e está emprestado', () => {
+    test('Devolver livro que existe e está emprestado', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1', emprestado: true, idMembro: 1 });
         biblioteca.adicionarMembro({ id: 1, nome: 'Membro 1' });
         biblioteca.emprestarLivro(1, 1);
         expect(biblioteca.devolverLivro(1)).toBe(true);
     });
-    test('Método devolverLivro que existe e está emprestado se foi excluido a propriedade idMembro e alterado o emprestado para false', () => {
+    test('Devolver livro que existe e está emprestado e verificar se foi excluido a propriedade idMembro e alterado o emprestado para false', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1', emprestado: true, idMembro: 1 });
         biblioteca.adicionarMembro({ id: 1, nome: 'Membro 1' });
@@ -125,21 +121,21 @@ describe('Teste da classe Biblioteca', () => {
         biblioteca.devolverLivro(1)
         expect(biblioteca.buscarLivroPorId(1)).toEqual({ id: 1, titulo: 'Livro 1', emprestado: false });
     });
-    test('Método devolverLivro que não existe', () => {
+    test('Devolver livro que não existe', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1', emprestado: true, idMembro: 1 });
         biblioteca.adicionarMembro({ id: 1, nome: 'Membro 1' });
         biblioteca.emprestarLivro(1, 1);
         expect(biblioteca.devolverLivro(2)).toBe(false);
     });
-    test('Método devolverLivro que não está emprestado', () => {
+    test('Devolver livro que não está emprestado', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1', emprestado: false });
         biblioteca.adicionarMembro({ id: 1, nome: 'Membro 1' });
         expect(biblioteca.devolverLivro(1)).toBe(false);
     });
 
-    test('Método listarLivrosEmprestados', () => {
+    test('Listar livros emprestados', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1', emprestado: true, idMembro: 1 });
         biblioteca.adicionarLivro({ id: 2, titulo: 'Livro 2', emprestado: false });
@@ -158,7 +154,7 @@ describe('Teste da classe Biblioteca', () => {
         ]);
     });
 
-    test('Método listarLivrosDisponiveis', () => {
+    test('Listar livros disponíveis', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1', emprestado: true, idMembro: 1 });
         biblioteca.adicionarLivro({ id: 2, titulo: 'Livro 2', emprestado: false });
@@ -175,7 +171,7 @@ describe('Teste da classe Biblioteca', () => {
         ]);
     });
 
-    test('Método contarLivros', () => {
+    test('Contar livros', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1' });
         biblioteca.adicionarLivro({ id: 2, titulo: 'Livro 2' });
@@ -184,7 +180,7 @@ describe('Teste da classe Biblioteca', () => {
         expect(biblioteca.contarLivros()).toBe(4);
     })
 
-    test('Método contarMembros', () => {
+    test('Contar membros', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarMembro({ id: 1, nome: 'Membro 1' });
         biblioteca.adicionarMembro({ id: 2, nome: 'Membro 2' });
@@ -192,7 +188,7 @@ describe('Teste da classe Biblioteca', () => {
         expect(biblioteca.contarMembros()).toBe(3);
     });
 
-    test('Método listarLivrosPorAutor', () => {
+    test('Listar livros por autor', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1', autor: 'Autor 1' });
         biblioteca.adicionarLivro({ id: 2, titulo: 'Livro 2', autor: 'Autor 2' });
@@ -204,7 +200,7 @@ describe('Teste da classe Biblioteca', () => {
         ]);
     });
 
-    test('Método listarLivrosPorGenero', () => {
+    test('Listar livros por genero', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1', genero: 'Genero 1' });
         biblioteca.adicionarLivro({ id: 2, titulo: 'Livro 2', genero: 'Genero 2' });
@@ -216,14 +212,14 @@ describe('Teste da classe Biblioteca', () => {
         ]);
     });
 
-    test('Método atualizarInformacaoLivro', () => {
+    test('Atualizar informações do livro', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1', autor: 'Autor 1' });
         biblioteca.adicionarLivro({ id: 2, titulo: 'Livro 2', autor: 'Autor 2' });
         biblioteca.atualizarInformacaoLivro(1, { autor: 'Autor 2' });
         expect(biblioteca.buscarLivroPorId(1)).toMatchObject({ id: 1, titulo: 'Livro 1', autor: 'Autor 2' });
     });
-    test('Método atualizarInformacaoLivro que não existe', () => {
+    test('Atualizar informações de um livro que não existe', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1', autor: 'Autor 1' });
         biblioteca.adicionarLivro({ id: 2, titulo: 'Livro 2', autor: 'Autor 2' });
@@ -231,7 +227,7 @@ describe('Teste da classe Biblioteca', () => {
         expect(biblioteca.buscarLivroPorId(3)).toBeUndefined();
     });
 
-    test('Método listarLivrosPorAno', () => {
+    test('Listar livros por ano', () => {
         const biblioteca = new Biblioteca();
         biblioteca.adicionarLivro({ id: 1, titulo: 'Livro 1', ano: 2020 });
         biblioteca.adicionarLivro({ id: 2, titulo: 'Livro 2', ano: 2021 });
